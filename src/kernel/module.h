@@ -21,20 +21,55 @@ public:
 	/* Constructor */
 	module(string name);
 
- 	/* Initialization */
- 	void initialize();
+	/* Destructor */
+	~module();
 
- 	string get_module_name();
+	/*
+	 * ***********************************************************
+	 * 	INTERFACES
+	 *
+	 *
+	 *
+	 * ***********************************************************
+	 */
 
- 	/* Load module */
- 	void load();
+	/*
+	 *  INITIALIZATION AND LOADING OPERATIONS
+	 */
+
+
+
+	/*
+	 *  GETTING DATA METHODS
+	 */
+
+	string get_module_name();
+
+
+	/*
+	 * ***********************************************************
+	 * 	PRIVATE OPERATIONS - DONT USE IN FINAL CLASSES
+	 *
+	 *
+	 *
+	 * ***********************************************************
+	 */
+
+	/*
+	 *  INITIALIZATION AND LOADING OPERATIONS
+	 */
+
+	/* This function must be override */
+	void initialize();
+
+
 
  	/* Register world */
 
  	/* Register entity */
 
 
- 	/*
+	/*
 	 *  SIMULATION OPERATIONS
 	 */
 
@@ -49,8 +84,6 @@ public:
 	//Unload module
 	void unload();
 
- 	/* Destructor */
- 	~module();
 };
 
 

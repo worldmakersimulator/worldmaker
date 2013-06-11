@@ -44,7 +44,7 @@ public:
  	void configure_simulation(MODE mode, double time);
 
  	//Load modules
- 	void load_modules();
+ 	void initialize_modules();
 
 
  	/*

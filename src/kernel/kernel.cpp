@@ -35,7 +35,7 @@ void kernel::configure_simulation(MODE mode, double time)
 }
 
 //Load modules
-void kernel::load_modules()
+void kernel::initialize_modules()
 {
 	map<string,module*>::iterator it;
 	module *mod;
@@ -43,11 +43,11 @@ void kernel::load_modules()
 	for(it = module_list.begin(); it != module_list.end(); it++)
 	{
 		mod = it->second;
-		cout << "Kernel: Loading module \"" << mod->get_module_name() << "\"... ";
+		cout << "Kernel: Initializing module \"" << mod->get_module_name() << "\"... ";
 
 		try
 		{
-			mod->load();
+			mod->initialize();
 			cout << "done!" << endl;
 
 		}

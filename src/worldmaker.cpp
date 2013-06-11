@@ -29,7 +29,7 @@ int main() {
 	ker->register_module(world);
 
 	/* Load all modules */
-	ker->load_modules();
+	ker->initialize_modules();
 
 	/* Configure simulation */
 	ker->configure_simulation(kernel::FASTSIM, 20.0);

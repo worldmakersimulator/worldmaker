@@ -9,27 +9,56 @@
 
 module::module(string name)
 {
+
+	//Set module name
 	this->name = name;
-
 }
 
-void module::initialize()
-{
-	cout << name+": Initializing..." << endl;
+/*
+ * ***********************************************************
+ * 	INTERFACES
+ *
+ *
+ *
+ * ***********************************************************
+ */
 
-	cout << name+": Initialized" << endl;
-}
+/*
+ *  INITIALIZATION AND LOADING OPERATIONS
+ */
+
+
+
+/*
+ *  GETTING DATA METHODS
+ */
 
 string module::get_module_name()
 {
 	return name;
 }
 
-/* Load module */
-void module::load()
+
+
+/*
+ * ***********************************************************
+ * 	PRIVATE OPERATIONS - DONT USE IN FINAL CLASSES
+ *
+ *
+ *
+ * ***********************************************************
+ */
+
+/*
+ *  INITIALIZATION AND LOADING OPERATIONS
+ */
+
+/* This function must be override */
+void module::initialize()
 {
-	//Loads module
+	//Do initializations
 }
+
 
 /*
  *  SIMULATION OPERATIONS

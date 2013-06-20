@@ -7,8 +7,8 @@
 //============================================================================
 
 #include <iostream>
-#include "kernel/kernel.h"
-#include "kernel/module.h"
+#include "kernel.h"
+#include "mod_world.h"
 #include <windows.h>
 
 using namespace std;
@@ -23,7 +23,7 @@ int main() {
 	ker->initialize();
 
 	/* Declare modules */
-	world = new module("WorldManager");
+	world = new mod_world("WorldManager");
 
 	/* Loading modules */
 	ker->register_module(world);

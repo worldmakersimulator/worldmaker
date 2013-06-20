@@ -5,12 +5,14 @@
  *      Author: Raul
  */
 
-#ifndef KERNEL_H_
-#define KERNEL_H_
+#ifndef KERNEL_KERNEL_H_
+#define KERNEL_KERNEL_H_
 
 #include <iostream>
 #include <map>
 #include <ctime>
+
+#include "common.h"
 #include "module.h"
 
 using namespace std;
@@ -87,4 +89,4 @@ public:
 };
 
 
-#endif /* KERNEL_H_ */
+#endif /* KERNEL_KERNEL_H_ */

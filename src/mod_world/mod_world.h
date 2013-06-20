@@ -5,12 +5,13 @@
  *      Author: Raul
  */
 
-#ifndef MOD_WORLD_H_
-#define MOD_WORLD_H_
+#ifndef KERNEL_MOD_WORLD_H_
+#define KERNEL_MOD_WORLD_H_
 
 #include <iostream>
 
-#include "../kernel/module.h"
+#include "common.h"
+#include "module.h"
 
 using namespace std;
 
@@ -27,4 +28,4 @@ public:
 
 };
 
-#endif /* MOD_WORLD_H_ */
+#endif /* KERNEL_MOD_WORLD_H_ */

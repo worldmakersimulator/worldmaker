@@ -5,10 +5,11 @@
  *      Author: Raul
  */
 
-#ifndef MODULE_H_
-#define MODULE_H_
+#ifndef KERNEL_MODULE_H_
+#define KERNEL_MODULE_H_
 
 #include <iostream>
+#include "common.h"
 
 using namespace std;
 
@@ -87,4 +88,4 @@ public:
 };
 
 
-#endif /* MODULE_H_ */
+#endif /* KERNEL_MODULE_H_ */

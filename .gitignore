@@ -16,3 +16,6 @@ configure
 configure.scan
 libtool
 stamp*
+*.la
+*.lo
+*.exe

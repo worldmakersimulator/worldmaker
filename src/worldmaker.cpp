@@ -1,38 +1,35 @@
-//============================================================================
-// Name        : worldmaker.cpp
-// Author      : Raúl Moreno
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
-//============================================================================
 
 #include <iostream>
 #include "kernel.h"
-#include "mod_world.h"
-#include <windows.h>
+#include "module.h"
+#include "worldmanager.h"
 
 using namespace std;
+using namespace world_maker;
 
 int main() {
-	kernel *ker;
-	module *world;
+	Kernel *ker;			/* Kernel */
+	Module *world;	/* World manager module */
 
 	/* Initialize kernel */
 	cout << "Begin execution" << endl;
-	ker = new kernel();
+	ker = new Kernel();
 	ker->initialize();
 
 	/* Declare modules */
-	world = new mod_world("WorldManager");
+	world = new WorldManager("WorldManager");
 
-	/* Loading modules */
+	/* Register modules */
 	ker->register_module(world);
 
-	/* Load all modules */
+	/* Initialize all modules */
 	ker->initialize_modules();
 
+	/* Load all modules */
+	ker->load_modules();
+
 	/* Configure simulation */
-	ker->configure_simulation(kernel::FASTSIM, 20.0);
+	ker->configure_simulation(Kernel::FASTSIM, 20.0);
 
 	//SIMULATE
 	ker->simulate();

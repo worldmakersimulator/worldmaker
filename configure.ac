@@ -18,7 +18,6 @@ AC_PROG_AWK
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
 
 # Checks for libraries.
 
@@ -43,7 +42,7 @@ AC_CONFIG_FILES(\
 	src/Makefile	\
 	src/common/Makefile	\
 	src/kernel/Makefile	\
-	src/mod_world/Makefile	\
+	src/worldmanager/Makefile	\
 	)
 
 AC_OUTPUT

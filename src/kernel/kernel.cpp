@@ -1,146 +1,110 @@
-/*
- * kernel.cpp
- *
- *  Created on: 07/06/2013
- *      Author: Raul
- */
 
 #include "kernel.h"
 
-kernel::kernel()
+using namespace std;
+
+namespace world_maker {
+
+Kernel::Kernel()
 {
 	mode = FASTSIM;
 	simulation_time = 0.0;
 	elapsed_time = 0.0;
 }
 
-/*
+/*************************************************
  *  INTIALIZATION AND LOADING OPERATIONS
- */
+ ************************************************/
 
-//Initialization
-void kernel::initialize()
+void
+Kernel::initialize()
 {
 	cout << "Kernel: Initializing World Maker Simulator... ";
+
+	//Do initializations
 
 	cout << "done!" << endl;
 }
 
-//Configure
-void kernel::configure_simulation(MODE mode, double time)
+void
+Kernel::register_module(Module *module)
 {
-	this->mode = mode;
-	this->simulation_time = time;
+	mod_manager.register_module(module); /* Register module from parameter in kernel */
+}
+
+void
+Kernel::initialize_modules()
+{
+	mod_manager.init_modules(); /* Call module manager to initialize all modules */
+}
+
+void
+Kernel::configure_simulation(MODE mode, double time)
+{
+	this->mode = mode; /* Set simulation mode from params */
+	this->simulation_time = time; /* Set simulation time from params */
 	cout << "Kernel: Simulation configured, MODE: " << mode << " TIME: " << time << endl;
 }
 
-//Load modules
-void kernel::initialize_modules()
+void
+Kernel::load_modules()
 {
-	map<string,module*>::iterator it;
-	module *mod;
-
-	for(it = module_list.begin(); it != module_list.end(); it++)
-	{
-		mod = it->second;
-		cout << "Kernel: Initializing module \"" << mod->get_module_name() << "\"... ";
-
-		try
-		{
-			mod->initialize();
-			cout << "done!" << endl;
-
-		}
-		catch(string & e)
-		{
-			cout << "FAIL!" << endl;
-			cout << "EXCEPTION: " << e << endl;
-		}
-	}
+	mod_manager.load_modules(); /* Call module manager to load all modules */
 }
 
-/*
+/*************************************************
  * WORLD OPERATIONS
- */
+ ************************************************/
 
 //Register world
 
 
-/*
+/*************************************************
  * ENTITIES OPERATIONS
- */
+ ************************************************/
 
 //Register entity
 
 
-/*
- *  MODULE MANAGING OPERATIONS
- */
+/*************************************************
+ *  SIMULATION OPERATIONS
+ ************************************************/
 
-//Register module
-void kernel::register_module(module *mod)
+void
+Kernel::simulate()
 {
-	try{
-		string mod_name = mod->get_module_name();
-
-		cout << "Kernel: Registering module \"" << mod_name << "\"... ";
-
-		if(module_list.find(mod_name) == module_list.end())
-		{
-			module_list[mod_name] = mod;
-			cout << "done!" << endl;
-		}
-		else
-		{
-			cout << "FAIL!" << endl;
-			throw (string)"Module with name \""+mod_name+"\" is already registered";
-		}
-	}
-	catch (string & e)
-	{
-		cout << "EXCEPTION: " << e << endl;
-	}
-}
-
-/*
- *  MODULE MANAGING OPERATIONS
- */
-
-//Begin simulation
-void kernel::simulate()
-{
-	map<string,module*>::iterator it;
 	double delta;
 	clock_t last, now;
 
 	cout << "Kernel: Simulation started" << endl;
 
 	delta = 1.0;
+
+	/* Initializes last clock time to for first iteration */
 	last = clock();
 
-	while(elapsed_time < simulation_time)
+	while(elapsed_time < simulation_time) /*  Iterates until simulation elapsed time reach maximum simulation time */
 	{
-		//////REAL-TIME SIMULATION
-		switch(mode)
+		switch(mode) /* Simulation mode */
 		{
+		/* Real time simulation */
 		case REALTIME:
+			/* How much time has passed since last iteration */
 			now = clock();
 			delta = (double)(now - last) / CLOCKS_PER_SEC;
 			last = now;
 			break;
-
+		/* Fast time simulation */
 		case FASTSIM:
-			delta = 1.0;
+			/* Delta is fixed */
+			delta = FAST_SIM_DELTA;
 			break;
 		}
 
-		//Update module ticks
-		for(it = module_list.begin(); it != module_list.end(); it++)
-		{
-			it->second->tick(delta);
-		}
+		/* Call module manager to update all modules with this delta */
+		mod_manager.tick_modules(delta);
 
-		//Update elapsed time
+		/* Count how much simulation time has passed */
 		elapsed_time += delta;
 	}
 
@@ -148,39 +112,22 @@ void kernel::simulate()
 }
 
 
-/*
+/*************************************************
  *  UNLOAD OPERATIONS
- */
+ ************************************************/
 
-//Unload modules
-void kernel::unload_modules()
+void
+Kernel::unload_modules()
 {
-	map<string,module*>::iterator it;
-	module *mod;
-
-	for(it = module_list.begin(); it != module_list.end(); it++)
-	{
-		mod = it->second;
-		cout << "Kernel: Unloading module \"" << mod->get_module_name() << "\"... ";
-
-		try
-		{
-			mod->unload();
-			cout << "done!" << endl;
-
-		}
-		catch(string & e)
-		{
-			cout << "FAIL!" << endl;
-			cout << "EXCEPTION: " << e << endl;
-		}
-	}
+	mod_manager.unload_modules(); /* Call module manager to unload all modules */
 }
 
 
 /* Destructor */
-kernel::~kernel()
+Kernel::~Kernel()
 {
 
 
 }
+
+} /* namespace world_maker */

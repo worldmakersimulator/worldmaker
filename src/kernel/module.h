@@ -1,9 +1,3 @@
-/*
- * module.h
- *
- *  Created on: 07/06/2013
- *      Author: Raul
- */
 
 #ifndef KERNEL_MODULE_H_
 #define KERNEL_MODULE_H_
@@ -13,79 +7,78 @@
 
 using namespace std;
 
-class module {
+namespace world_maker {
+
+/**
+ * Class Module.
+ * This class represents a functional module that can be loaded in the kernel.
+ */
+class Module {
 private:
-	string name;
+	string name;	/* Module name, must be unique*/
 
 public:
 
 	/* Constructor */
-	module(string name);
+	Module(string name);
 
 	/* Destructor */
-	~module();
+	virtual ~Module();
 
-	/*
-	 * ***********************************************************
-	 * 	INTERFACES
-	 *
-	 *
-	 *
-	 * ***********************************************************
-	 */
-
-	/*
-	 *  INITIALIZATION AND LOADING OPERATIONS
-	 */
-
-
-
-	/*
+	/*************************************************
 	 *  GETTING DATA METHODS
-	 */
+	 ************************************************/
 
 	string get_module_name();
 
-
-	/*
-	 * ***********************************************************
-	 * 	PRIVATE OPERATIONS - DONT USE IN FINAL CLASSES
-	 *
-	 *
-	 *
-	 * ***********************************************************
-	 */
-
-	/*
+	/*************************************************
 	 *  INITIALIZATION AND LOADING OPERATIONS
+	 ************************************************/
+
+	/**
+	 * Initialize this module.
+	 * This function must be called only from kernel.
+	 * Module must implement this function to initialize itself.
+	 * Must throw an exception with string description if initialization fails.
 	 */
+	virtual void initialize() = 0;
 
-	/* This function must be override */
-	void initialize();
+	/**
+	 * Load this module.
+	 * This function must be called only from kernel.
+	 * Module must implement this function to load needed resources.
+	 * Must throw an exception with string description if loading fails.
+	 */
+	virtual void load() = 0;
 
-
-
- 	/* Register world */
-
- 	/* Register entity */
-
-
-	/*
+	/*************************************************
 	 *  SIMULATION OPERATIONS
-	 */
+	 ************************************************/
 
- 	//Tick update function
- 	void tick(double delta);
+ 	/**
+ 	 * Update function.
+ 	 * This function must be called only from kernel.
+ 	 * Module must implement this function to update itself in every simulation tick.
+ 	 * \param delta Contains delta in seconds from last tick.
+ 	 */
+ 	virtual void tick(double delta) = 0;
 
 
- 	/*
+ 	/*************************************************
 	 *  UNLOAD OPERATIONS
-	 */
+	 ************************************************/
 
-	//Unload module
-	void unload();
+	/**
+	 * Unload this module.
+	 * This function must be called only from kernel.
+	 * Module must implement this function to release its resources.
+	 * Must throw an exception with string description if unload fails.
+	 */
+ 	virtual void unload() = 0;
 
 };
+
+} /* namespace world_maker */
 
 
 #endif /* KERNEL_MODULE_H_ */

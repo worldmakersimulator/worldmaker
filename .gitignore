@@ -2,7 +2,6 @@
 Debug/*
 .*
 Makefile
-Makefile.in
 m4/*
 config/*
 config.h
@@ -12,7 +11,6 @@ autoscan*
 aclocal.m4
 *.log
 config.status
-configure
 configure.scan
 libtool
 stamp*

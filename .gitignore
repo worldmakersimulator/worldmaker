@@ -2,13 +2,10 @@
 Debug/*
 .*
 Makefile
-m4/*
-config/*
 config.h
 *~
 autom4te*
 autoscan*
-aclocal.m4
 *.log
 config.status
 configure.scan
